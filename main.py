@@ -137,7 +137,8 @@ def wykres_kolowy(dane, col_dane, col_pro, tytul, argument='sum' or 'count'):
     plt.show()
 
 
-wykres_kolowy(wb, 'PARTNER_ID', 'POINTS', 'Procentowa suma punktów dla każdego partnera', 'sum')
+wykres_kolowy(df, 'PARTNER_ID', 'POINTS', 'Procentowa suma punktów dla każdego partnera', 'sum')
+wykres_kolowy(df, 'PARTNER_ID', 'TRANSACTION_DATE', 'Procentowa transakcji każdego partnera', 'count')
 
 
 # wykres_kolowy(df, 'VOIVODESHIP', 'SHOP_ID', 'Rozkład procentowy sklepów w województwach', 'count')
@@ -155,15 +156,17 @@ def wykres_od_czasu(dane, col, tytul):
     kalendarz3 = wb_copy[(wb_copy['PARTNER_ID'] == 4)].groupby(
         ['PARTNER_ID', 'TRANSACTION_DATE'])[col].sum().reset_index()
 
+
     plt.plot(kalendarz1['TRANSACTION_DATE'].tolist(), kalendarz1[col].tolist(), label='partner1')
     plt.plot(kalendarz2['TRANSACTION_DATE'].tolist(), kalendarz2[col].tolist(), label='partner3')
     plt.plot(kalendarz3['TRANSACTION_DATE'].tolist(), kalendarz3[col].tolist(), label='partner4')
+
     plt.title(tytul)
     plt.legend()
     plt.show()
 
 
-wykres_od_czasu(wb, 'POINTS', 'Wykres sumy punktów w każdym miesiącu u poszczególnych partnerów')
-wykres_od_czasu(wb, 'TURNOVER', 'Wykres sumy kwoty w każdym miesiącu u poszczególnych partnerów')
+wykres_od_czasu(df, 'POINTS', 'Wykres sumy punktów w każdym miesiącu u poszczególnych partnerów')
+wykres_od_czasu(df, 'TURNOVER', 'Wykres sumy kwoty w każdym miesiącu u poszczególnych partnerów')
 # możemy w kilka minut wykorzystać funkcję do stworzenia wykresu punktów w zależności od województwa na przestrzeni czasu
 # czy ilości transakcji na przestrzeni czasu czy innych potrzebnych wykresów zależnych od czasu
